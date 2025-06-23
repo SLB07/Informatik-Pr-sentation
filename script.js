@@ -1,5 +1,8 @@
 // Navigation functionality
 document.addEventListener('DOMContentLoaded', function() {
+    // Initialize test history
+    initializeTestHistory();
+    
     // Smooth scrolling for navigation
     const navItems = document.querySelectorAll('.nav-item');
     
@@ -46,6 +49,165 @@ document.addEventListener('DOMContentLoaded', function() {
         observer.observe(section);
     });
 });
+
+// Test History Management
+let testHistory = [];
+let currentPage = 1;
+const testsPerPage = 10;
+
+function initializeTestHistory() {
+    // Load history from localStorage
+    const savedHistory = localStorage.getItem('sortingTestHistory');
+    if (savedHistory) {
+        testHistory = JSON.parse(savedHistory);
+    }
+    updateHistoryDisplay();
+    updateHistoryStats();
+}
+
+function saveTestHistory() {
+    // Keep only last 50 tests
+    if (testHistory.length > 50) {
+        testHistory = testHistory.slice(-50);
+    }
+    localStorage.setItem('sortingTestHistory', JSON.stringify(testHistory));
+}
+
+function addTestResult(comparisonType, alg1Name, alg1Comparisons, alg1Swaps, alg2Name, alg2Comparisons, alg2Swaps) {
+    const winner = determineWinner(alg1Comparisons, alg1Swaps, alg2Comparisons, alg2Swaps);
+    
+    const testResult = {
+        id: Date.now(),
+        timestamp: new Date().toISOString(),
+        comparisonType: comparisonType,
+        algorithm1: {
+            name: alg1Name,
+            comparisons: alg1Comparisons,
+            swaps: alg1Swaps
+        },
+        algorithm2: {
+            name: alg2Name,
+            comparisons: alg2Comparisons,
+            swaps: alg2Swaps
+        },
+        winner: winner
+    };
+    
+    testHistory.unshift(testResult); // Add to beginning
+    saveTestHistory();
+    updateHistoryDisplay();
+    updateHistoryStats();
+}
+
+function determineWinner(comp1, swap1, comp2, swap2) {
+    // Simple scoring: fewer operations = better
+    const score1 = comp1 + swap1;
+    const score2 = comp2 + swap2;
+    
+    if (score1 < score2) return 'algorithm1';
+    if (score2 < score1) return 'algorithm2';
+    return 'tie';
+}
+
+function updateHistoryDisplay() {
+    const tbody = document.getElementById('history-table-body');
+    const filter = document.getElementById('history-filter').value;
+    
+    let filteredHistory = testHistory;
+    if (filter !== 'all') {
+        filteredHistory = testHistory.filter(test => test.comparisonType === filter);
+    }
+    
+    if (filteredHistory.length === 0) {
+        tbody.innerHTML = '<tr class="no-data"><td colspan="9">Keine Tests gefunden.</td></tr>';
+        updatePagination(0);
+        return;
+    }
+    
+    const startIndex = (currentPage - 1) * testsPerPage;
+    const endIndex = startIndex + testsPerPage;
+    const pageData = filteredHistory.slice(startIndex, endIndex);
+    
+    tbody.innerHTML = pageData.map(test => {
+        const date = new Date(test.timestamp);
+        const formattedDate = date.toLocaleDateString('de-DE');
+        const formattedTime = date.toLocaleTimeString('de-DE', { hour: '2-digit', minute: '2-digit' });
+        
+        const comparisonNames = {
+            'bubble-shaker': 'Bubble vs Shaker',
+            'insertion-selection': 'Insertion vs Selection',
+            'merge-quick': 'Merge vs Quick'
+        };
+        
+        const winnerText = test.winner === 'algorithm1' ? test.algorithm1.name : 
+                          test.winner === 'algorithm2' ? test.algorithm2.name : 'Unentschieden';
+        
+        const winnerClass = test.winner === 'tie' ? 'winner-tie' : 'winner-highlight';
+        
+        return `
+            <tr>
+                <td>${formattedDate}<br><small>${formattedTime}</small></td>
+                <td>${comparisonNames[test.comparisonType] || test.comparisonType}</td>
+                <td class="algorithm-name">${test.algorithm1.name}</td>
+                <td>${test.algorithm1.comparisons.toLocaleString()}</td>
+                <td>${test.algorithm1.swaps.toLocaleString()}</td>
+                <td class="algorithm-name">${test.algorithm2.name}</td>
+                <td>${test.algorithm2.comparisons.toLocaleString()}</td>
+                <td>${test.algorithm2.swaps.toLocaleString()}</td>
+                <td class="${winnerClass}">${winnerText}</td>
+            </tr>
+        `;
+    }).join('');
+    
+    updatePagination(filteredHistory.length);
+}
+
+function updatePagination(totalItems) {
+    const totalPages = Math.ceil(totalItems / testsPerPage);
+    const prevBtn = document.getElementById('prev-page');
+    const nextBtn = document.getElementById('next-page');
+    const pageInfo = document.getElementById('page-info');
+    
+    prevBtn.disabled = currentPage <= 1;
+    nextBtn.disabled = currentPage >= totalPages || totalPages === 0;
+    
+    if (totalPages === 0) {
+        pageInfo.textContent = 'Keine Seiten';
+    } else {
+        pageInfo.textContent = `Seite ${currentPage} von ${totalPages}`;
+    }
+}
+
+function updateHistoryStats() {
+    const totalTests = testHistory.length;
+    const today = new Date().toDateString();
+    const todayTests = testHistory.filter(test => 
+        new Date(test.timestamp).toDateString() === today
+    ).length;
+    
+    document.getElementById('total-tests').textContent = totalTests;
+    document.getElementById('today-tests').textContent = todayTests;
+}
+
+function filterHistory() {
+    currentPage = 1;
+    updateHistoryDisplay();
+}
+
+function changePage(direction) {
+    currentPage += direction;
+    updateHistoryDisplay();
+}
+
+function clearHistory() {
+    if (confirm('Sind Sie sicher, dass Sie die gesamte Testhistorie löschen möchten?')) {
+        testHistory = [];
+        currentPage = 1;
+        saveTestHistory();
+        updateHistoryDisplay();
+        updateHistoryStats();
+    }
+}
 
 // Algorithm execution functions
 function runBubbleSort() {
@@ -506,97 +668,151 @@ function resetVisualization(algorithm) {
     });
 }
 
-// Comparison functions
-function runComparison(type) {
-    const button = document.querySelector(`button[onclick="runComparison('${type}')"]`);
-    const resultsDiv = document.getElementById(`${type}-results`);
-    const sizeSelect = document.getElementById(`${type}-size`);
+// Comparison demo functions
+function runComparisonDemo(type) {
+    const button = document.querySelector(`button[onclick="runComparisonDemo('${type}')"]`);
     
     button.disabled = true;
-    button.innerHTML = '<div class="loading-spinner"></div> Running Test...';
-    
-    const size = parseInt(sizeSelect.value);
+    button.innerHTML = '<div class="loading-spinner"></div> Läuft...';
     
     setTimeout(() => {
-        // Simulate performance results
-        const results = generateComparisonResults(type, size);
-        displayComparisonResults(type, results);
+        switch (type) {
+            case 'bubble-shaker':
+                runBubbleVsShakerDemo();
+                break;
+            case 'insertion-selection':
+                runInsertionVsSelectionDemo();
+                break;
+            case 'merge-quick':
+                runMergeVsQuickDemo();
+                break;
+        }
         
-        resultsDiv.style.display = 'block';
         button.disabled = false;
-        button.innerHTML = '🏆 Vergleich starten';
+        button.innerHTML = `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <polygon points="5 3 19 12 5 21 5 3"/>
+        </svg> Vergleich starten`;
     }, 2000);
 }
 
-function generateComparisonResults(type, size) {
-    const baseTime = size * 0.001;
-    const baseComparisons = size * size * 0.5;
-    const baseSwaps = size * 0.3;
+function runBubbleVsShakerDemo() {
+    // Reset both visualizations
+    resetDemoVisualization('bubble-demo');
+    resetDemoVisualization('shaker-demo');
     
-    switch (type) {
-        case 'bubble-shaker':
-            return {
-                bubble: {
-                    time: (baseTime * 1.2 + Math.random() * 10).toFixed(2),
-                    comparisons: Math.floor(baseComparisons * 1.1 + Math.random() * 1000),
-                    swaps: Math.floor(baseSwaps * 1.0 + Math.random() * 500)
-                },
-                shaker: {
-                    time: (baseTime * 1.0 + Math.random() * 8).toFixed(2),
-                    comparisons: Math.floor(baseComparisons * 0.9 + Math.random() * 800),
-                    swaps: Math.floor(baseSwaps * 0.8 + Math.random() * 400)
-                }
-            };
-        case 'insertion-selection':
-            return {
-                insertion: {
-                    time: (baseTime * 0.8 + Math.random() * 6).toFixed(2),
-                    comparisons: Math.floor(baseComparisons * 0.6 + Math.random() * 600),
-                    swaps: Math.floor(baseSwaps * 0.5 + Math.random() * 300)
-                },
-                selection: {
-                    time: (baseTime * 1.0 + Math.random() * 8).toFixed(2),
-                    comparisons: Math.floor(baseComparisons * 1.0 + Math.random() * 1000),
-                    swaps: Math.floor(baseSwaps * 0.1 + Math.random() * 100)
-                }
-            };
-        case 'merge-quick':
-            return {
-                merge: {
-                    time: (baseTime * 0.3 + Math.random() * 3).toFixed(2),
-                    comparisons: Math.floor(size * Math.log2(size) * 1.2 + Math.random() * 200),
-                    swaps: Math.floor(size * Math.log2(size) * 1.0 + Math.random() * 150)
-                },
-                quick: {
-                    time: (baseTime * 0.25 + Math.random() * 2.5).toFixed(2),
-                    comparisons: Math.floor(size * Math.log2(size) * 1.0 + Math.random() * 180),
-                    swaps: Math.floor(size * Math.log2(size) * 0.8 + Math.random() * 120)
-                }
-            };
-    }
+    // Run bubble sort demo
+    const bubbleResult = animateDemoSort('bubble-demo', 'bubble-demo-comparisons', 'bubble-demo-swaps', 25, 15);
+    
+    // Run shaker sort demo (slightly faster)
+    setTimeout(() => {
+        const shakerResult = animateDemoSort('shaker-demo', 'shaker-demo-comparisons', 'shaker-demo-swaps', 20, 12);
+        
+        // Add to test history after both complete
+        setTimeout(() => {
+            addTestResult('bubble-shaker', 'Bubble Sort', 25, 15, 'Shaker Sort', 20, 12);
+        }, 3000);
+    }, 500);
 }
 
-function displayComparisonResults(type, results) {
-    Object.keys(results).forEach(algorithm => {
-        const result = results[algorithm];
-        document.getElementById(`${algorithm}-time`).textContent = `${result.time}ms`;
-        document.getElementById(`${algorithm}-comparisons-result`).textContent = result.comparisons.toLocaleString();
-        document.getElementById(`${algorithm}-swaps-result`).textContent = result.swaps.toLocaleString();
+function runInsertionVsSelectionDemo() {
+    resetDemoVisualization('insertion-demo');
+    resetDemoVisualization('selection-demo');
+    
+    animateDemoSort('insertion-demo', 'insertion-demo-comparisons', 'insertion-demo-swaps', 18, 10);
+    
+    setTimeout(() => {
+        animateDemoSort('selection-demo', 'selection-demo-comparisons', 'selection-demo-swaps', 22, 6);
+        
+        setTimeout(() => {
+            addTestResult('insertion-selection', 'Insertion Sort', 18, 10, 'Selection Sort', 22, 6);
+        }, 3000);
+    }, 300);
+}
+
+function runMergeVsQuickDemo() {
+    resetDemoVisualization('merge-demo');
+    resetDemoVisualization('quick-demo');
+    
+    animateDemoSort('merge-demo', 'merge-demo-comparisons', 'merge-demo-swaps', 15, 15);
+    
+    setTimeout(() => {
+        animateDemoSort('quick-demo', 'quick-demo-comparisons', 'quick-demo-swaps', 12, 8);
+        
+        setTimeout(() => {
+            addTestResult('merge-quick', 'Merge Sort', 15, 15, 'Quick Sort', 12, 8);
+        }, 3000);
+    }, 200);
+}
+
+function resetDemoVisualization(prefix) {
+    const container = document.getElementById(`${prefix}-bars`);
+    const bars = container.querySelectorAll('.demo-bar');
+    const comparisonsEl = document.getElementById(`${prefix}-comparisons`);
+    const swapsEl = document.getElementById(`${prefix}-swaps`);
+    
+    // Reset counters
+    comparisonsEl.textContent = '0';
+    swapsEl.textContent = '0';
+    
+    // Reset bars to original state
+    const originalValues = [64, 34, 25, 12, 22, 11, 90];
+    const originalHeights = ['70%', '37%', '28%', '13%', '24%', '12%', '100%'];
+    
+    bars.forEach((bar, index) => {
+        bar.classList.remove('comparing', 'swapping', 'sorted');
+        bar.style.height = originalHeights[index];
+        bar.textContent = originalValues[index];
     });
+}
+
+function animateDemoSort(prefix, comparisonsId, swapsId, maxComparisons, maxSwaps) {
+    const container = document.getElementById(`${prefix}-bars`);
+    const bars = container.querySelectorAll('.demo-bar');
+    const comparisonsEl = document.getElementById(comparisonsId);
+    const swapsEl = document.getElementById(swapsId);
     
-    // Highlight winner
-    const algorithms = Object.keys(results);
-    const timeWinner = algorithms.reduce((winner, current) => 
-        parseFloat(results[current].time) < parseFloat(results[winner].time) ? current : winner
-    );
+    let comparisons = 0;
+    let swaps = 0;
     
-    algorithms.forEach(algorithm => {
-        const card = document.querySelector(`.${algorithm}-result`);
-        card.classList.remove('winner');
-        if (algorithm === timeWinner) {
-            card.classList.add('winner');
+    const interval = setInterval(() => {
+        // Random animation for demonstration
+        const randomBars = [Math.floor(Math.random() * bars.length), Math.floor(Math.random() * bars.length)];
+        
+        bars.forEach(bar => bar.classList.remove('comparing', 'swapping'));
+        
+        randomBars.forEach(index => {
+            bars[index].classList.add('comparing');
+        });
+        
+        comparisons++;
+        comparisonsEl.textContent = comparisons;
+        
+        if (Math.random() > 0.6 && swaps < maxSwaps) {
+            swaps++;
+            swapsEl.textContent = swaps;
+            randomBars.forEach(index => {
+                bars[index].classList.add('swapping');
+            });
         }
-    });
+        
+        if (comparisons >= maxComparisons) {
+            clearInterval(interval);
+            bars.forEach(bar => {
+                bar.classList.remove('comparing', 'swapping');
+                bar.classList.add('sorted');
+            });
+            
+            // Show final sorted state
+            const sortedValues = [11, 12, 22, 25, 34, 64, 90];
+            const sortedHeights = ['12%', '13%', '24%', '28%', '37%', '70%', '100%'];
+            bars.forEach((bar, index) => {
+                bar.style.height = sortedHeights[index];
+                bar.textContent = sortedValues[index];
+            });
+        }
+    }, 150);
+    
+    return { comparisons: maxComparisons, swaps: maxSwaps };
 }
 
 // Add loading spinner CSS

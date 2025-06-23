@@ -1,0 +1,1237 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Informatik Präsentationsleistung - Sortieralgorithmen</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M3 6h18l-2 13H5L3 6z"/>
+                        <path d="M3 6l2-2h14l2 2"/>
+                        <path d="M8 10v4"/>
+                        <path d="M12 10v4"/>
+                        <path d="M16 10v4"/>
+                    </svg>
+                    <div>
+                        <h1>Informatik Präsentationsleistung</h1>
+                        <p>Interaktive Sortieralgorithmen-Demo</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Navigation -->
+    <nav class="navigation">
+        <div class="container">
+            <div class="nav-items">
+                <a href="#intro" class="nav-item active">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
+                    </svg>
+                    Einführung
+                </a>
+                <a href="#bubble" class="nav-item">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="12" cy="12" r="10"/>
+                        <path d="M8 12l2 2 4-4"/>
+                    </svg>
+                    Bubble Sort
+                </a>
+                <a href="#shaker" class="nav-item">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/>
+                    </svg>
+                    Shaker Sort
+                </a>
+                <a href="#insertion" class="nav-item">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+                        <polyline points="14,2 14,8 20,8"/>
+                    </svg>
+                    Insertion Sort
+                </a>
+                <a href="#selection" class="nav-item">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M9 11H5a2 2 0 0 0-2 2v7a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7a2 2 0 0 0-2-2h-4"/>
+                        <polyline points="9,7 12,4 15,7"/>
+                        <line x1="12" y1="4" x2="12" y2="11"/>
+                    </svg>
+                    Selection Sort
+                </a>
+                <a href="#merge" class="nav-item">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
+                    </svg>
+                    Merge Sort
+                </a>
+                <a href="#quick" class="nav-item">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/>
+                    </svg>
+                    Quick Sort
+                </a>
+                <a href="#comparisons" class="nav-item">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M9 17H7A5 5 0 0 1 7 7h2"/>
+                        <path d="M15 7h2a5 5 0 1 1 0 10h-2"/>
+                        <line x1="8" y1="12" x2="16" y2="12"/>
+                    </svg>
+                    Vergleiche
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="main">
+        <div class="container">
+            <!-- Introduction Section -->
+            <section id="intro" class="intro-section">
+                <div class="intro-content">
+                    <h1 class="intro-title">
+                        Informatik <span class="highlight">Präsentationsleistung</span>
+                    </h1>
+                    
+                    <div class="algorithm-biographies">
+                        <div class="biography-grid">
+                            <div class="biography-card">
+                                <h3>Bubble Sort</h3>
+                                <p>Der klassische Anfänger unter den Sortieralgorithmen. Bubble Sort arbeitet wie Luftblasen im Wasser - die größten Elemente "blubbern" langsam nach oben. Durch wiederholtes Vergleichen benachbarter Elemente und deren Vertauschung entsteht eine sortierte Liste. Einfach zu verstehen, aber ineffizient bei großen Datenmengen.</p>
+                            </div>
+                            
+                            <div class="biography-card">
+                                <h3>Shaker Sort</h3>
+                                <p>Die verbesserte Version des Bubble Sort, auch Cocktail Sort genannt. Wie ein Barkeeper, der den Cocktail-Shaker in beide Richtungen bewegt, durchläuft dieser Algorithmus die Liste vorwärts und rückwärts. Dadurch werden sowohl große als auch kleine Elemente effizienter an ihre richtige Position gebracht.</p>
+                            </div>
+                            
+                            <div class="biography-card">
+                                <h3>Insertion Sort</h3>
+                                <p>Der Kartenspieler unter den Algorithmen. Wie beim Sortieren von Spielkarten in der Hand nimmt Insertion Sort ein Element nach dem anderen und fügt es an der richtigen Stelle in den bereits sortierten Bereich ein. Besonders effizient bei kleinen oder bereits teilweise sortierten Listen.</p>
+                            </div>
+                            
+                            <div class="biography-card">
+                                <h3>Selection Sort</h3>
+                                <p>Der methodische Perfektionist. Selection Sort sucht systematisch das kleinste Element in der unsortierten Liste und platziert es an der ersten Position. Dann das zweitkleinste an die zweite Position und so weiter. Konstante Leistung, aber nicht die schnellste Lösung für große Datenmengen.</p>
+                            </div>
+                            
+                            <div class="biography-card">
+                                <h3>Merge Sort</h3>
+                                <p>Der Stratege mit dem "Teile und Herrsche"-Prinzip. Merge Sort zerlegt die Liste rekursiv in kleinere Teile, bis nur noch einzelne Elemente übrig sind, und fügt sie dann systematisch wieder zusammen. Garantiert stabile und vorhersagbare Leistung, auch bei großen Datenmengen.</p>
+                            </div>
+                            
+                            <div class="biography-card">
+                                <h3>Quick Sort</h3>
+                                <p>Der Geschwindigkeitskönig unter den Sortieralgorithmen. Quick Sort wählt ein Pivot-Element und teilt die Liste in Elemente kleiner und größer als das Pivot. Durch rekursive Anwendung entsteht eine sortierte Liste. Im Durchschnitt der schnellste Algorithmus, aber die Leistung hängt von der Pivot-Wahl ab.</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="intro-features">
+                        <div class="feature">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+                                <polyline points="14,2 14,8 20,8"/>
+                                <line x1="16" y1="13" x2="8" y2="13"/>
+                                <line x1="16" y1="17" x2="8" y2="17"/>
+                                <polyline points="10,9 9,9 8,9"/>
+                            </svg>
+                            Interaktive Demos
+                        </div>
+                        <div class="feature">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <polyline points="16 18 22 12 16 6"/>
+                                <polyline points="8 6 2 12 8 18"/>
+                            </svg>
+                            Python Code Editor
+                        </div>
+                        <div class="feature">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M9 17H7A5 5 0 0 1 7 7h2"/>
+                                <path d="M15 7h2a5 5 0 1 1 0 10h-2"/>
+                                <line x1="8" y1="12" x2="16" y2="12"/>
+                            </svg>
+                            Leistungsvergleiche
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Bubble Sort Section -->
+            <section id="bubble" class="algorithm-section">
+                <div class="algorithm-card">
+                    <div class="algorithm-header">
+                        <div class="algorithm-info">
+                            <h2>Bubble Sort</h2>
+                            <p>Der klassische Sortieralgorithmus für Einsteiger</p>
+                        </div>
+                        <div class="algorithm-number">01</div>
+                    </div>
+                    
+                    <div class="algorithm-content">
+                        <div class="algorithm-theory">
+                            <div class="complexity-box">
+                                <h3>Zeitkomplexität</h3>
+                                <div class="complexity-item">
+                                    <span>Bester Fall:</span>
+                                    <span class="complexity-best">O(n)</span>
+                                </div>
+                                <div class="complexity-item">
+                                    <span>Durchschnitt:</span>
+                                    <span class="complexity-average">O(n²)</span>
+                                </div>
+                                <div class="complexity-item">
+                                    <span>Schlechtester Fall:</span>
+                                    <span class="complexity-worst">O(n²)</span>
+                                </div>
+                                <div class="complexity-item">
+                                    <span>Speicherplatz:</span>
+                                    <span class="complexity-space">O(1)</span>
+                                </div>
+                            </div>
+                            
+                            <div class="usage-box">
+                                <h3>Verwendung</h3>
+                                <ul>
+                                    <li>Lernzwecke und Algorithmus-Verständnis</li>
+                                    <li>Sehr kleine Datensätze (< 10 Elemente)</li>
+                                    <li>Situationen wo Einfachheit wichtiger als Effizienz ist</li>
+                                    <li>Erkennung ob Liste bereits sortiert ist</li>
+                                </ul>
+                            </div>
+                            
+                            <div class="explanation-box">
+                                <h3>Funktionsweise</h3>
+                                <div class="steps">
+                                    <div class="step">
+                                        <div class="step-number">1</div>
+                                        <p>Vergleiche benachbarte Elemente von links nach rechts</p>
+                                    </div>
+                                    <div class="step">
+                                        <div class="step-number">2</div>
+                                        <p>Vertausche sie, wenn das linke Element größer ist</p>
+                                    </div>
+                                    <div class="step">
+                                        <div class="step-number">3</div>
+                                        <p>Das größte Element "blubbert" nach rechts</p>
+                                    </div>
+                                    <div class="step">
+                                        <div class="step-number">4</div>
+                                        <p>Wiederhole für die verbleibenden Elemente</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="algorithm-practice">
+                            <div class="code-section">
+                                <div class="code-header">
+                                    <h3>Python Implementation</h3>
+                                    <button class="run-button" onclick="runBubbleSort()">
+                                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                            <polygon points="5 3 19 12 5 21 5 3"/>
+                                        </svg>
+                                        Code ausführen
+                                    </button>
+                                </div>
+                                <div class="code-editor">
+                                    <textarea id="bubble-code" class="code-textarea">def bubble_sort(arr):
+    n = len(arr)
+    for i in range(n):
+        # Flag für Optimierung
+        swapped = False
+        
+        # Letzten i Elemente sind bereits sortiert
+        for j in range(0, n - i - 1):
+            # Vergleiche benachbarte Elemente
+            if arr[j] > arr[j + 1]:
+                # Vertausche wenn in falscher Reihenfolge
+                arr[j], arr[j + 1] = arr[j + 1], arr[j]
+                swapped = True
+        
+        # Wenn keine Vertauschung stattfand, ist Array sortiert
+        if not swapped:
+            break
+    
+    return arr
+
+# Test mit Beispieldaten
+test_array = [64, 34, 25, 12, 22, 11, 90]
+print("Original:", test_array)
+sorted_array = bubble_sort(test_array.copy())
+print("Sortiert:", sorted_array)</textarea>
+                                </div>
+                                <div class="output-section">
+                                    <div class="output-header">Ausgabe:</div>
+                                    <div id="bubble-output" class="output-content">Klicken Sie auf "Code ausführen" um das Programm zu starten...</div>
+                                </div>
+                            </div>
+                            
+                            <div class="visualization-section">
+                                <div class="visualization-header">
+                                    <h3>Live Visualisierung</h3>
+                                    <div class="stats">
+                                        <span>Vergleiche: <span id="bubble-comparisons">0</span></span>
+                                        <span>Vertauschungen: <span id="bubble-swaps">0</span></span>
+                                    </div>
+                                </div>
+                                <div class="visualization-area">
+                                    <div id="bubble-visualization" class="bars-container">
+                                        <div class="bar" style="height: 70%" data-value="64">64</div>
+                                        <div class="bar" style="height: 37%" data-value="34">34</div>
+                                        <div class="bar" style="height: 28%" data-value="25">25</div>
+                                        <div class="bar" style="height: 13%" data-value="12">12</div>
+                                        <div class="bar" style="height: 24%" data-value="22">22</div>
+                                        <div class="bar" style="height: 12%" data-value="11">11</div>
+                                        <div class="bar" style="height: 100%" data-value="90">90</div>
+                                    </div>
+                                </div>
+                                <button class="reset-button" onclick="resetVisualization('bubble')">↻ Zurücksetzen</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Shaker Sort Section -->
+            <section id="shaker" class="algorithm-section">
+                <div class="algorithm-card">
+                    <div class="algorithm-header">
+                        <div class="algorithm-info">
+                            <h2>Shaker Sort</h2>
+                            <p>Bidirektionale Verbesserung des Bubble Sort</p>
+                        </div>
+                        <div class="algorithm-number">02</div>
+                    </div>
+                    
+                    <div class="algorithm-content">
+                        <div class="algorithm-theory">
+                            <div class="complexity-box">
+                                <h3>Zeitkomplexität</h3>
+                                <div class="complexity-item">
+                                    <span>Bester Fall:</span>
+                                    <span class="complexity-best">O(n)</span>
+                                </div>
+                                <div class="complexity-item">
+                                    <span>Durchschnitt:</span>
+                                    <span class="complexity-average">O(n²)</span>
+                                </div>
+                                <div class="complexity-item">
+                                    <span>Schlechtester Fall:</span>
+                                    <span class="complexity-worst">O(n²)</span>
+                                </div>
+                                <div class="complexity-item">
+                                    <span>Speicherplatz:</span>
+                                    <span class="complexity-space">O(1)</span>
+                                </div>
+                            </div>
+                            
+                            <div class="usage-box">
+                                <h3>Verwendung</h3>
+                                <ul>
+                                    <li>Verbesserung gegenüber Standard Bubble Sort</li>
+                                    <li>Listen mit Elementen an beiden Enden unsortiert</li>
+                                    <li>Kleine bis mittlere Datensätze</li>
+                                    <li>Wenn bidirektionale Sortierung vorteilhaft ist</li>
+                                </ul>
+                            </div>
+                            
+                            <div class="explanation-box">
+                                <h3>Funktionsweise</h3>
+                                <div class="steps">
+                                    <div class="step">
+                                        <div class="step-number">1</div>
+                                        <p>Durchlaufe die Liste von links nach rechts</p>
+                                    </div>
+                                    <div class="step">
+                                        <div class="step-number">2</div>
+                                        <p>Größtes Element wandert nach rechts</p>
+                                    </div>
+                                    <div class="step">
+                                        <div class="step-number">3</div>
+                                        <p>Durchlaufe die Liste von rechts nach links</p>
+                                    </div>
+                                    <div class="step">
+                                        <div class="step-number">4</div>
+                                        <p>Kleinstes Element wandert nach links</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="algorithm-practice">
+                            <div class="code-section">
+                                <div class="code-header">
+                                    <h3>Python Implementation</h3>
+                                    <button class="run-button" onclick="runShakerSort()">
+                                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                            <polygon points="5 3 19 12 5 21 5 3"/>
+                                        </svg>
+                                        Code ausführen
+                                    </button>
+                                </div>
+                                <div class="code-editor">
+                                    <textarea class="code-textarea">def shaker_sort(arr):
+    n = len(arr)
+    left = 0
+    right = n - 1
+    
+    while left < right:
+        # Von links nach rechts - größtes Element nach rechts
+        swapped = False
+        for i in range(left, right):
+            if arr[i] > arr[i + 1]:
+                arr[i], arr[i + 1] = arr[i + 1], arr[i]
+                swapped = True
+        
+        # Wenn keine Vertauschung, ist Array sortiert
+        if not swapped:
+            break
+            
+        right -= 1
+        
+        # Von rechts nach links - kleinstes Element nach links
+        swapped = False
+        for i in range(right, left, -1):
+            if arr[i] < arr[i - 1]:
+                arr[i], arr[i - 1] = arr[i - 1], arr[i]
+                swapped = True
+        
+        # Wenn keine Vertauschung, ist Array sortiert
+        if not swapped:
+            break
+            
+        left += 1
+    
+    return arr
+
+# Test mit Beispieldaten
+test_array = [64, 34, 25, 12, 22, 11, 90]
+print("Original:", test_array)
+sorted_array = shaker_sort(test_array.copy())
+print("Sortiert:", sorted_array)</textarea>
+                                </div>
+                                <div class="output-section">
+                                    <div class="output-header">Ausgabe:</div>
+                                    <div id="shaker-output" class="output-content">Klicken Sie auf "Code ausführen" um das Programm zu starten...</div>
+                                </div>
+                            </div>
+                            
+                            <div class="visualization-section">
+                                <div class="visualization-header">
+                                    <h3>Live Visualisierung</h3>
+                                    <div class="stats">
+                                        <span>Vergleiche: <span id="shaker-comparisons">0</span></span>
+                                        <span>Vertauschungen: <span id="shaker-swaps">0</span></span>
+                                    </div>
+                                </div>
+                                <div class="visualization-area">
+                                    <div id="shaker-visualization" class="bars-container">
+                                        <div class="bar" style="height: 70%" data-value="64">64</div>
+                                        <div class="bar" style="height: 37%" data-value="34">34</div>
+                                        <div class="bar" style="height: 28%" data-value="25">25</div>
+                                        <div class="bar" style="height: 13%" data-value="12">12</div>
+                                        <div class="bar" style="height: 24%" data-value="22">22</div>
+                                        <div class="bar" style="height: 12%" data-value="11">11</div>
+                                        <div class="bar" style="height: 100%" data-value="90">90</div>
+                                    </div>
+                                </div>
+                                <button class="reset-button" onclick="resetVisualization('shaker')">↻ Zurücksetzen</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Insertion Sort Section -->
+            <section id="insertion" class="algorithm-section">
+                <div class="algorithm-card">
+                    <div class="algorithm-header">
+                        <div class="algorithm-info">
+                            <h2>Insertion Sort</h2>
+                            <p>Effizient für kleine und teilweise sortierte Arrays</p>
+                        </div>
+                        <div class="algorithm-number">03</div>
+                    </div>
+                    
+                    <div class="algorithm-content">
+                        <div class="algorithm-theory">
+                            <div class="complexity-box">
+                                <h3>Zeitkomplexität</h3>
+                                <div class="complexity-item">
+                                    <span>Bester Fall:</span>
+                                    <span class="complexity-best">O(n)</span>
+                                </div>
+                                <div class="complexity-item">
+                                    <span>Durchschnitt:</span>
+                                    <span class="complexity-average">O(n²)</span>
+                                </div>
+                                <div class="complexity-item">
+                                    <span>Schlechtester Fall:</span>
+                                    <span class="complexity-worst">O(n²)</span>
+                                </div>
+                                <div class="complexity-item">
+                                    <span>Speicherplatz:</span>
+                                    <span class="complexity-space">O(1)</span>
+                                </div>
+                            </div>
+                            
+                            <div class="usage-box">
+                                <h3>Verwendung</h3>
+                                <ul>
+                                    <li>Kleine Datensätze (< 50 Elemente)</li>
+                                    <li>Bereits teilweise sortierte Arrays</li>
+                                    <li>Online-Algorithmus (sortiert während Eingabe)</li>
+                                    <li>Stabile Sortierung erforderlich</li>
+                                </ul>
+                            </div>
+                            
+                            <div class="explanation-box">
+                                <h3>Funktionsweise</h3>
+                                <div class="steps">
+                                    <div class="step">
+                                        <div class="step-number">1</div>
+                                        <p>Beginne mit dem zweiten Element</p>
+                                    </div>
+                                    <div class="step">
+                                        <div class="step-number">2</div>
+                                        <p>Vergleiche mit Elementen im sortierten Bereich</p>
+                                    </div>
+                                    <div class="step">
+                                        <div class="step-number">3</div>
+                                        <p>Verschiebe größere Elemente nach rechts</p>
+                                    </div>
+                                    <div class="step">
+                                        <div class="step-number">4</div>
+                                        <p>Füge Element an der richtigen Position ein</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="algorithm-practice">
+                            <div class="code-section">
+                                <div class="code-header">
+                                    <h3>Python Implementation</h3>
+                                    <button class="run-button" onclick="runInsertionSort()">
+                                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                            <polygon points="5 3 19 12 5 21 5 3"/>
+                                        </svg>
+                                        Code ausführen
+                                    </button>
+                                </div>
+                                <div class="code-editor">
+                                    <textarea class="code-textarea">def insertion_sort(arr):
+    # Durchlaufe Array ab dem zweiten Element
+    for i in range(1, len(arr)):
+        key = arr[i]  # Aktuelles Element zum Einfügen
+        j = i - 1     # Index des letzten sortierten Elements
+        
+        # Verschiebe Elemente die größer als key sind
+        # eine Position nach rechts
+        while j >= 0 and arr[j] > key:
+            arr[j + 1] = arr[j]
+            j -= 1
+        
+        # Füge key an der richtigen Position ein
+        arr[j + 1] = key
+    
+    return arr
+
+# Test mit Beispieldaten
+test_array = [64, 34, 25, 12, 22, 11, 90]
+print("Original:", test_array)
+sorted_array = insertion_sort(test_array.copy())
+print("Sortiert:", sorted_array)</textarea>
+                                </div>
+                                <div class="output-section">
+                                    <div class="output-header">Ausgabe:</div>
+                                    <div id="insertion-output" class="output-content">Klicken Sie auf "Code ausführen" um das Programm zu starten...</div>
+                                </div>
+                            </div>
+                            
+                            <div class="visualization-section">
+                                <div class="visualization-header">
+                                    <h3>Live Visualisierung</h3>
+                                    <div class="stats">
+                                        <span>Vergleiche: <span id="insertion-comparisons">0</span></span>
+                                        <span>Verschiebungen: <span id="insertion-swaps">0</span></span>
+                                    </div>
+                                </div>
+                                <div class="visualization-area">
+                                    <div id="insertion-visualization" class="bars-container">
+                                        <div class="bar" style="height: 70%" data-value="64">64</div>
+                                        <div class="bar" style="height: 37%" data-value="34">34</div>
+                                        <div class="bar" style="height: 28%" data-value="25">25</div>
+                                        <div class="bar" style="height: 13%" data-value="12">12</div>
+                                        <div class="bar" style="height: 24%" data-value="22">22</div>
+                                        <div class="bar" style="height: 12%" data-value="11">11</div>
+                                        <div class="bar" style="height: 100%" data-value="90">90</div>
+                                    </div>
+                                </div>
+                                <button class="reset-button" onclick="resetVisualization('insertion')">↻ Zurücksetzen</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Selection Sort Section -->
+            <section id="selection" class="algorithm-section">
+                <div class="algorithm-card">
+                    <div class="algorithm-header">
+                        <div class="algorithm-info">
+                            <h2>Selection Sort</h2>
+                            <p>Systematische Auswahl des kleinsten Elements</p>
+                        </div>
+                        <div class="algorithm-number">04</div>
+                    </div>
+                    
+                    <div class="algorithm-content">
+                        <div class="algorithm-theory">
+                            <div class="complexity-box">
+                                <h3>Zeitkomplexität</h3>
+                                <div class="complexity-item">
+                                    <span>Bester Fall:</span>
+                                    <span class="complexity-worst">O(n²)</span>
+                                </div>
+                                <div class="complexity-item">
+                                    <span>Durchschnitt:</span>
+                                    <span class="complexity-worst">O(n²)</span>
+                                </div>
+                                <div class="complexity-item">
+                                    <span>Schlechtester Fall:</span>
+                                    <span class="complexity-worst">O(n²)</span>
+                                </div>
+                                <div class="complexity-item">
+                                    <span>Speicherplatz:</span>
+                                    <span class="complexity-space">O(1)</span>
+                                </div>
+                            </div>
+                            
+                            <div class="usage-box">
+                                <h3>Verwendung</h3>
+                                <ul>
+                                    <li>Minimale Anzahl von Vertauschungen gewünscht</li>
+                                    <li>Speicher ist sehr begrenzt</li>
+                                    <li>Einfache Implementierung erforderlich</li>
+                                    <li>Konstante Leistung unabhängig von Eingabe</li>
+                                </ul>
+                            </div>
+                            
+                            <div class="explanation-box">
+                                <h3>Funktionsweise</h3>
+                                <div class="steps">
+                                    <div class="step">
+                                        <div class="step-number">1</div>
+                                        <p>Finde das kleinste Element im unsortierten Bereich</p>
+                                    </div>
+                                    <div class="step">
+                                        <div class="step-number">2</div>
+                                        <p>Vertausche es mit dem ersten unsortierten Element</p>
+                                    </div>
+                                    <div class="step">
+                                        <div class="step-number">3</div>
+                                        <p>Erweitere den sortierten Bereich um eine Position</p>
+                                    </div>
+                                    <div class="step">
+                                        <div class="step-number">4</div>
+                                        <p>Wiederhole bis alle Elemente sortiert sind</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="algorithm-practice">
+                            <div class="code-section">
+                                <div class="code-header">
+                                    <h3>Python Implementation</h3>
+                                    <button class="run-button" onclick="runSelectionSort()">
+                                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                            <polygon points="5 3 19 12 5 21 5 3"/>
+                                        </svg>
+                                        Code ausführen
+                                    </button>
+                                </div>
+                                <div class="code-editor">
+                                    <textarea class="code-textarea">def selection_sort(arr):
+    n = len(arr)
+    
+    # Durchlaufe das gesamte Array
+    for i in range(n):
+        # Finde das Minimum im verbleibenden unsortierten Array
+        min_idx = i
+        
+        for j in range(i + 1, n):
+            if arr[j] < arr[min_idx]:
+                min_idx = j
+        
+        # Vertausche das gefundene Minimum mit dem ersten Element
+        arr[i], arr[min_idx] = arr[min_idx], arr[i]
+    
+    return arr
+
+# Test mit Beispieldaten
+test_array = [64, 34, 25, 12, 22, 11, 90]
+print("Original:", test_array)
+sorted_array = selection_sort(test_array.copy())
+print("Sortiert:", sorted_array)</textarea>
+                                </div>
+                                <div class="output-section">
+                                    <div class="output-header">Ausgabe:</div>
+                                    <div id="selection-output" class="output-content">Klicken Sie auf "Code ausführen" um das Programm zu starten...</div>
+                                </div>
+                            </div>
+                            
+                            <div class="visualization-section">
+                                <div class="visualization-header">
+                                    <h3>Live Visualisierung</h3>
+                                    <div class="stats">
+                                        <span>Vergleiche: <span id="selection-comparisons">0</span></span>
+                                        <span>Vertauschungen: <span id="selection-swaps">0</span></span>
+                                    </div>
+                                </div>
+                                <div class="visualization-area">
+                                    <div id="selection-visualization" class="bars-container">
+                                        <div class="bar" style="height: 70%" data-value="64">64</div>
+                                        <div class="bar" style="height: 37%" data-value="34">34</div>
+                                        <div class="bar" style="height: 28%" data-value="25">25</div>
+                                        <div class="bar" style="height: 13%" data-value="12">12</div>
+                                        <div class="bar" style="height: 24%" data-value="22">22</div>
+                                        <div class="bar" style="height: 12%" data-value="11">11</div>
+                                        <div class="bar" style="height: 100%" data-value="90">90</div>
+                                    </div>
+                                </div>
+                                <button class="reset-button" onclick="resetVisualization('selection')">↻ Zurücksetzen</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Merge Sort Section -->
+            <section id="merge" class="algorithm-section">
+                <div class="algorithm-card">
+                    <div class="algorithm-header">
+                        <div class="algorithm-info">
+                            <h2>Merge Sort</h2>
+                            <p>Teile und herrsche - garantiert O(n log n)</p>
+                        </div>
+                        <div class="algorithm-number">05</div>
+                    </div>
+                    
+                    <div class="algorithm-content">
+                        <div class="algorithm-theory">
+                            <div class="complexity-box">
+                                <h3>Zeitkomplexität</h3>
+                                <div class="complexity-item">
+                                    <span>Bester Fall:</span>
+                                    <span class="complexity-best">O(n log n)</span>
+                                </div>
+                                <div class="complexity-item">
+                                    <span>Durchschnitt:</span>
+                                    <span class="complexity-best">O(n log n)</span>
+                                </div>
+                                <div class="complexity-item">
+                                    <span>Schlechtester Fall:</span>
+                                    <span class="complexity-best">O(n log n)</span>
+                                </div>
+                                <div class="complexity-item">
+                                    <span>Speicherplatz:</span>
+                                    <span class="complexity-average">O(n)</span>
+                                </div>
+                            </div>
+                            
+                            <div class="usage-box">
+                                <h3>Verwendung</h3>
+                                <ul>
+                                    <li>Große Datensätze mit garantierter Leistung</li>
+                                    <li>Stabile Sortierung erforderlich</li>
+                                    <li>Externe Sortierung (Dateien größer als RAM)</li>
+                                    <li>Parallelisierung möglich</li>
+                                </ul>
+                            </div>
+                            
+                            <div class="explanation-box">
+                                <h3>Funktionsweise</h3>
+                                <div class="steps">
+                                    <div class="step">
+                                        <div class="step-number">1</div>
+                                        <p>Teile das Array rekursiv in zwei Hälften</p>
+                                    </div>
+                                    <div class="step">
+                                        <div class="step-number">2</div>
+                                        <p>Sortiere beide Hälften rekursiv</p>
+                                    </div>
+                                    <div class="step">
+                                        <div class="step-number">3</div>
+                                        <p>Führe die sortierten Hälften zusammen</p>
+                                    </div>
+                                    <div class="step">
+                                        <div class="step-number">4</div>
+                                        <p>Vergleiche Elemente und füge sie sortiert ein</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="algorithm-practice">
+                            <div class="code-section">
+                                <div class="code-header">
+                                    <h3>Python Implementation</h3>
+                                    <button class="run-button" onclick="runMergeSort()">
+                                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                            <polygon points="5 3 19 12 5 21 5 3"/>
+                                        </svg>
+                                        Code ausführen
+                                    </button>
+                                </div>
+                                <div class="code-editor">
+                                    <textarea class="code-textarea">def merge_sort(arr):
+    if len(arr) <= 1:
+        return arr
+    
+    # Teile das Array in zwei Hälften
+    mid = len(arr) // 2
+    left = arr[:mid]
+    right = arr[mid:]
+    
+    # Rekursive Sortierung beider Hälften
+    left = merge_sort(left)
+    right = merge_sort(right)
+    
+    # Führe die sortierten Hälften zusammen
+    return merge(left, right)
+
+def merge(left, right):
+    result = []
+    i = j = 0
+    
+    # Vergleiche Elemente und füge sie sortiert hinzu
+    while i < len(left) and j < len(right):
+        if left[i] <= right[j]:
+            result.append(left[i])
+            i += 1
+        else:
+            result.append(right[j])
+            j += 1
+    
+    # Füge verbleibende Elemente hinzu
+    result.extend(left[i:])
+    result.extend(right[j:])
+    
+    return result
+
+# Test mit Beispieldaten
+test_array = [64, 34, 25, 12, 22, 11, 90]
+print("Original:", test_array)
+sorted_array = merge_sort(test_array.copy())
+print("Sortiert:", sorted_array)</textarea>
+                                </div>
+                                <div class="output-section">
+                                    <div class="output-header">Ausgabe:</div>
+                                    <div id="merge-output" class="output-content">Klicken Sie auf "Code ausführen" um das Programm zu starten...</div>
+                                </div>
+                            </div>
+                            
+                            <div class="visualization-section">
+                                <div class="visualization-header">
+                                    <h3>Live Visualisierung</h3>
+                                    <div class="stats">
+                                        <span>Vergleiche: <span id="merge-comparisons">0</span></span>
+                                        <span>Zusammenführungen: <span id="merge-swaps">0</span></span>
+                                    </div>
+                                </div>
+                                <div class="visualization-area">
+                                    <div id="merge-visualization" class="bars-container">
+                                        <div class="bar" style="height: 70%" data-value="64">64</div>
+                                        <div class="bar" style="height: 37%" data-value="34">34</div>
+                                        <div class="bar" style="height: 28%" data-value="25">25</div>
+                                        <div class="bar" style="height: 13%" data-value="12">12</div>
+                                        <div class="bar" style="height: 24%" data-value="22">22</div>
+                                        <div class="bar" style="height: 12%" data-value="11">11</div>
+                                        <div class="bar" style="height: 100%" data-value="90">90</div>
+                                    </div>
+                                </div>
+                                <button class="reset-button" onclick="resetVisualization('merge')">↻ Zurücksetzen</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Quick Sort Section -->
+            <section id="quick" class="algorithm-section">
+                <div class="algorithm-card">
+                    <div class="algorithm-header">
+                        <div class="algorithm-info">
+                            <h2>Quick Sort</h2>
+                            <p>Der schnellste durchschnittliche Sortieralgorithmus</p>
+                        </div>
+                        <div class="algorithm-number">06</div>
+                    </div>
+                    
+                    <div class="algorithm-content">
+                        <div class="algorithm-theory">
+                            <div class="complexity-box">
+                                <h3>Zeitkomplexität</h3>
+                                <div class="complexity-item">
+                                    <span>Bester Fall:</span>
+                                    <span class="complexity-best">O(n log n)</span>
+                                </div>
+                                <div class="complexity-item">
+                                    <span>Durchschnitt:</span>
+                                    <span class="complexity-best">O(n log n)</span>
+                                </div>
+                                <div class="complexity-item">
+                                    <span>Schlechtester Fall:</span>
+                                    <span class="complexity-worst">O(n²)</span>
+                                </div>
+                                <div class="complexity-item">
+                                    <span>Speicherplatz:</span>
+                                    <span class="complexity-space">O(log n)</span>
+                                </div>
+                            </div>
+                            
+                            <div class="usage-box">
+                                <h3>Verwendung</h3>
+                                <ul>
+                                    <li>Große Datensätze mit hoher Geschwindigkeit</li>
+                                    <li>In-Place Sortierung gewünscht</li>
+                                    <li>Durchschnittliche Leistung wichtiger als Worst-Case</li>
+                                    <li>Standard in vielen Programmierbibliotheken</li>
+                                </ul>
+                            </div>
+                            
+                            <div class="explanation-box">
+                                <h3>Funktionsweise</h3>
+                                <div class="steps">
+                                    <div class="step">
+                                        <div class="step-number">1</div>
+                                        <p>Wähle ein Pivot-Element aus dem Array</p>
+                                    </div>
+                                    <div class="step">
+                                        <div class="step-number">2</div>
+                                        <p>Partitioniere: kleinere links, größere rechts</p>
+                                    </div>
+                                    <div class="step">
+                                        <div class="step-number">3</div>
+                                        <p>Sortiere beide Teilarrays rekursiv</p>
+                                    </div>
+                                    <div class="step">
+                                        <div class="step-number">4</div>
+                                        <p>Kombiniere die Ergebnisse</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="algorithm-practice">
+                            <div class="code-section">
+                                <div class="code-header">
+                                    <h3>Python Implementation</h3>
+                                    <button class="run-button" onclick="runQuickSort()">
+                                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                            <polygon points="5 3 19 12 5 21 5 3"/>
+                                        </svg>
+                                        Code ausführen
+                                    </button>
+                                </div>
+                                <div class="code-editor">
+                                    <textarea class="code-textarea">def quick_sort(arr):
+    if len(arr) <= 1:
+        return arr
+    
+    # Wähle Pivot (hier: mittleres Element)
+    pivot = arr[len(arr) // 2]
+    
+    # Partitioniere das Array
+    left = [x for x in arr if x < pivot]
+    middle = [x for x in arr if x == pivot]
+    right = [x for x in arr if x > pivot]
+    
+    # Rekursive Sortierung und Kombination
+    return quick_sort(left) + middle + quick_sort(right)
+
+def quick_sort_inplace(arr, low=0, high=None):
+    if high is None:
+        high = len(arr) - 1
+    
+    if low < high:
+        # Partitioniere und erhalte Pivot-Index
+        pi = partition(arr, low, high)
+        
+        # Sortiere Elemente vor und nach der Partition
+        quick_sort_inplace(arr, low, pi - 1)
+        quick_sort_inplace(arr, pi + 1, high)
+
+def partition(arr, low, high):
+    pivot = arr[high]  # Letztes Element als Pivot
+    i = low - 1        # Index des kleineren Elements
+    
+    for j in range(low, high):
+        if arr[j] <= pivot:
+            i += 1
+            arr[i], arr[j] = arr[j], arr[i]
+    
+    arr[i + 1], arr[high] = arr[high], arr[i + 1]
+    return i + 1
+
+# Test mit Beispieldaten
+test_array = [64, 34, 25, 12, 22, 11, 90]
+print("Original:", test_array)
+sorted_array = quick_sort(test_array.copy())
+print("Sortiert:", sorted_array)</textarea>
+                                </div>
+                                <div class="output-section">
+                                    <div class="output-header">Ausgabe:</div>
+                                    <div id="quick-output" class="output-content">Klicken Sie auf "Code ausführen" um das Programm zu starten...</div>
+                                </div>
+                            </div>
+                            
+                            <div class="visualization-section">
+                                <div class="visualization-header">
+                                    <h3>Live Visualisierung</h3>
+                                    <div class="stats">
+                                        <span>Vergleiche: <span id="quick-comparisons">0</span></span>
+                                        <span>Partitionierungen: <span id="quick-swaps">0</span></span>
+                                    </div>
+                                </div>
+                                <div class="visualization-area">
+                                    <div id="quick-visualization" class="bars-container">
+                                        <div class="bar" style="height: 70%" data-value="64">64</div>
+                                        <div class="bar" style="height: 37%" data-value="34">34</div>
+                                        <div class="bar" style="height: 28%" data-value="25">25</div>
+                                        <div class="bar" style="height: 13%" data-value="12">12</div>
+                                        <div class="bar" style="height: 24%" data-value="22">22</div>
+                                        <div class="bar" style="height: 12%" data-value="11">11</div>
+                                        <div class="bar" style="height: 100%" data-value="90">90</div>
+                                    </div>
+                                </div>
+                                <button class="reset-button" onclick="resetVisualization('quick')">↻ Zurücksetzen</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Comparisons Section -->
+            <section id="comparisons" class="comparisons-section">
+                <div class="section-header">
+                    <h2>Algorithmus-Vergleiche</h2>
+                    <p>Direkte Leistungsvergleiche zwischen ähnlichen Sortieralgorithmen</p>
+                </div>
+
+                <!-- Bubble vs Shaker Sort -->
+                <div class="comparison-card">
+                    <div class="comparison-header">
+                        <h3>Bubble Sort vs. Shaker Sort</h3>
+                        <p>Klassischer Vergleich: Einfach vs. Bidirektional</p>
+                    </div>
+                    <div class="comparison-content">
+                        <div class="comparison-config">
+                            <div class="config-item">
+                                <label for="bubble-shaker-size">Array-Größe:</label>
+                                <select id="bubble-shaker-size">
+                                    <option value="100">100 Elemente</option>
+                                    <option value="500">500 Elemente</option>
+                                    <option value="1000" selected>1000 Elemente</option>
+                                    <option value="2000">2000 Elemente</option>
+                                </select>
+                            </div>
+                            <button class="comparison-button" onclick="runComparison('bubble-shaker')">
+                                🏆 Vergleich starten
+                            </button>
+                        </div>
+                        <div id="bubble-shaker-results" class="comparison-results" style="display: none;">
+                            <div class="result-card bubble-result">
+                                <h4>Bubble Sort</h4>
+                                <div class="metrics">
+                                    <div class="metric">
+                                        <span class="metric-label">Zeit</span>
+                                        <span id="bubble-time" class="metric-value">-</span>
+                                    </div>
+                                    <div class="metric">
+                                        <span class="metric-label">Vergleiche</span>
+                                        <span id="bubble-comparisons-result" class="metric-value">-</span>
+                                    </div>
+                                    <div class="metric">
+                                        <span class="metric-label">Vertauschungen</span>
+                                        <span id="bubble-swaps-result" class="metric-value">-</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="result-card shaker-result">
+                                <h4>Shaker Sort</h4>
+                                <div class="metrics">
+                                    <div class="metric">
+                                        <span class="metric-label">Zeit</span>
+                                        <span id="shaker-time" class="metric-value">-</span>
+                                    </div>
+                                    <div class="metric">
+                                        <span class="metric-label">Vergleiche</span>
+                                        <span id="shaker-comparisons-result" class="metric-value">-</span>
+                                    </div>
+                                    <div class="metric">
+                                        <span class="metric-label">Vertauschungen</span>
+                                        <span id="shaker-swaps-result" class="metric-value">-</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Insertion vs Selection Sort -->
+                <div class="comparison-card">
+                    <div class="comparison-header">
+                        <h3>Insertion Sort vs. Selection Sort</h3>
+                        <p>Effizienz-Duell: Einfügen vs. Auswählen</p>
+                    </div>
+                    <div class="comparison-content">
+                        <div class="comparison-config">
+                            <div class="config-item">
+                                <label for="insertion-selection-size">Array-Größe:</label>
+                                <select id="insertion-selection-size">
+                                    <option value="100">100 Elemente</option>
+                                    <option value="500">500 Elemente</option>
+                                    <option value="1000" selected>1000 Elemente</option>
+                                    <option value="2000">2000 Elemente</option>
+                                </select>
+                            </div>
+                            <button class="comparison-button" onclick="runComparison('insertion-selection')">
+                                🏆 Vergleich starten
+                            </button>
+                        </div>
+                        <div id="insertion-selection-results" class="comparison-results" style="display: none;">
+                            <div class="result-card insertion-result">
+                                <h4>Insertion Sort</h4>
+                                <div class="metrics">
+                                    <div class="metric">
+                                        <span class="metric-label">Zeit</span>
+                                        <span id="insertion-time" class="metric-value">-</span>
+                                    </div>
+                                    <div class="metric">
+                                        <span class="metric-label">Vergleiche</span>
+                                        <span id="insertion-comparisons-result" class="metric-value">-</span>
+                                    </div>
+                                    <div class="metric">
+                                        <span class="metric-label">Verschiebungen</span>
+                                        <span id="insertion-swaps-result" class="metric-value">-</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="result-card selection-result">
+                                <h4>Selection Sort</h4>
+                                <div class="metrics">
+                                    <div class="metric">
+                                        <span class="metric-label">Zeit</span>
+                                        <span id="selection-time" class="metric-value">-</span>
+                                    </div>
+                                    <div class="metric">
+                                        <span class="metric-label">Vergleiche</span>
+                                        <span id="selection-comparisons-result" class="metric-value">-</span>
+                                    </div>
+                                    <div class="metric">
+                                        <span class="metric-label">Vertauschungen</span>
+                                        <span id="selection-swaps-result" class="metric-value">-</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Merge vs Quick Sort -->
+                <div class="comparison-card">
+                    <div class="comparison-header">
+                        <h3>Merge Sort vs. Quick Sort</h3>
+                        <p>Champions League: Stabilität vs. Geschwindigkeit</p>
+                    </div>
+                    <div class="comparison-content">
+                        <div class="comparison-config">
+                            <div class="config-item">
+                                <label for="merge-quick-size">Array-Größe:</label>
+                                <select id="merge-quick-size">
+                                    <option value="1000">1000 Elemente</option>
+                                    <option value="5000">5000 Elemente</option>
+                                    <option value="10000" selected>10000 Elemente</option>
+                                    <option value="50000">50000 Elemente</option>
+                                </select>
+                            </div>
+                            <button class="comparison-button" onclick="runComparison('merge-quick')">
+                                🏆 Vergleich starten
+                            </button>
+                        </div>
+                        <div id="merge-quick-results" class="comparison-results" style="display: none;">
+                            <div class="result-card merge-result">
+                                <h4>Merge Sort</h4>
+                                <div class="metrics">
+                                    <div class="metric">
+                                        <span class="metric-label">Zeit</span>
+                                        <span id="merge-time" class="metric-value">-</span>
+                                    </div>
+                                    <div class="metric">
+                                        <span class="metric-label">Vergleiche</span>
+                                        <span id="merge-comparisons-result" class="metric-value">-</span>
+                                    </div>
+                                    <div class="metric">
+                                        <span class="metric-label">Zusammenführungen</span>
+                                        <span id="merge-swaps-result" class="metric-value">-</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="result-card quick-result">
+                                <h4>Quick Sort</h4>
+                                <div class="metrics">
+                                    <div class="metric">
+                                        <span class="metric-label">Zeit</span>
+                                        <span id="quick-time" class="metric-value">-</span>
+                                    </div>
+                                    <div class="metric">
+                                        <span class="metric-label">Vergleiche</span>
+                                        <span id="quick-comparisons-result" class="metric-value">-</span>
+                                    </div>
+                                    <div class="metric">
+                                        <span class="metric-label">Partitionierungen</span>
+                                        <span id="quick-swaps-result" class="metric-value">-</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-info">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M9 11H5a2 2 0 0 0-2 2v7a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7a2 2 0 0 0-2-2h-4"/>
+                        <polyline points="9,7 12,4 15,7"/>
+                        <line x1="12" y1="4" x2="12" y2="11"/>
+                    </svg>
+                    <span>Informatik Präsentationsleistung - Sortieralgorithmen</span>
+                </div>
+                <p>Interaktive Demonstration und Vergleich von Sortieralgorithmen mit Python</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
